@@ -13,7 +13,6 @@ export class MoviesService {
     constructor(private readonly httpService: HttpService) { }
 
     async getMovie(movieId: string): Promise<Movie> {
-        // async getMovie(movieId: string) {
 
         const url = `${this.tmdbApiUrl}/movie/${movieId}?language=en-US`;
 
@@ -28,7 +27,6 @@ export class MoviesService {
             );
 
             this.logger.log(`GET ${url} with status ${result.status}`);
-            // return 'Hello World!222';
             return result.data;
         } catch (error) {
 
@@ -50,10 +48,8 @@ export class MoviesService {
             );
             this.logger.log(`GET ${url} with status ${result.status}`);
 
-            return result.data.results;
+            return result.data;
         } catch (error) {
-            console.log(error);
-
             throw new HttpException('Failed to search movies', HttpStatus.BAD_REQUEST);
         }
     }
