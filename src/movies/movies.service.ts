@@ -7,7 +7,7 @@ import { AxiosRequestConfig } from 'axios';
 @Injectable()
 export class MoviesService {
     private readonly tmdbApiUrl = 'https://api.themoviedb.org/3';
-    private readonly apiKey = process.env.REACT_APP_ACCESS_TOKEN;
+    private readonly apiKey = process.env.APP_ACCESS_TOKEN;
     private readonly logger = new Logger(MoviesService.name);
 
     constructor(private readonly httpService: HttpService) { }
