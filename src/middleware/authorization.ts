@@ -5,17 +5,22 @@ import { supabase } from 'src/supabase/client';
 @Injectable()
 export class AuthorizationMiddleware implements NestMiddleware {
     async use(req: Request, res: Response, next: NextFunction) {
-        console.log(req.headers.authorization);
-        const { data, error } = await supabase().auth.getUser(req.headers.authorization)
-        if (error) {
-            return {
-                statusCode: 403,
-                message: "Not Authorized"
-            }
+
+        const authorizationHeader = req.headers.authorization;
+        if (!authorizationHeader) {
+            throw new Error("Authorization header is missing");
         }
 
-        console.log(data);
-        console.log('Request...');
+        const token = authorizationHeader.split(" ")[1];
+        if (!token) {
+            throw new Error("Token is missing in the authorization header");
+        }
+
+        const { data, error } = await supabase().auth.getUser(token)
+        if (error) {
+            throw new Error("Not Authorized")
+        }
+
         next();
     }
 }
