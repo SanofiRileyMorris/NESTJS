@@ -7,13 +7,13 @@ import { AxiosRequestConfig } from 'axios';
 @Injectable()
 export class MoviesService {
     private readonly tmdbApiUrl = 'https://api.themoviedb.org/3';
-    private readonly apiKey = process.env.REACT_APP_API_KEY;
+    private readonly apiKey = process.env.REACT_APP_ACCESS_TOKEN;
     private readonly logger = new Logger(MoviesService.name);
 
     constructor(private readonly httpService: HttpService) { }
 
-    // async getMovie(movieId: string): Promise<Movie> {
-    async getMovie(movieId: string) {
+    async getMovie(movieId: string): Promise<Movie> {
+        // async getMovie(movieId: string) {
 
         const url = `${this.tmdbApiUrl}/movie/${movieId}?language=en-US`;
 
@@ -26,10 +26,12 @@ export class MoviesService {
                     },
                 }),
             );
+
             this.logger.log(`GET ${url} with status ${result.status}`);
-            return 'Hello World!222';
-            // return result.data;
+            // return 'Hello World!222';
+            return result.data;
         } catch (error) {
+
             throw new HttpException('Failed to fetch movie data', HttpStatus.BAD_REQUEST);
         }
     }
@@ -50,6 +52,8 @@ export class MoviesService {
 
             return result.data.results;
         } catch (error) {
+            console.log(error);
+
             throw new HttpException('Failed to search movies', HttpStatus.BAD_REQUEST);
         }
     }

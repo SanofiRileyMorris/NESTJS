@@ -8,15 +8,15 @@ export class MoviesController {
     constructor(private readonly moviesService: MoviesService) { }
 
     @Get(':id')
-    // async getMovie(@Param('id') movieId: string): Promise<Movie> {
-    async getMovie(@Param('id') movieId: string) {
+    async getMovie(@Param('id') movieId: string): Promise<Movie> {
+        // async getMovie(@Param('id') movieId: string) {
 
-        console.log("testing Get")
         return this.moviesService.getMovie(movieId);
     }
 
     @Get('search')
-    async searchMovies(@Query('query') searchTerm: string): Promise<Movies[]> {
+    async searchMovies(@Query('searchTerm') searchTerm: string): Promise<Movies[]> {
+        console.log(searchTerm)
         return this.moviesService.searchMovies(searchTerm);
     }
 
