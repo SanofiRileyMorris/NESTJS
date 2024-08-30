@@ -5,8 +5,8 @@ import { HttpModule } from '@nestjs/axios';
 import { PrismaService } from 'src/middleware/prisma.service';
 
 @Module({
-    imports: [HttpModule],
-    controllers: [MoviesController],
-    providers: [MoviesService, PrismaService],
+  imports: [HttpModule],
+  controllers: [MoviesController],
+  providers: [MoviesService, PrismaService],
 })
-export class MoviesModule { }
+export class MoviesModule {}
